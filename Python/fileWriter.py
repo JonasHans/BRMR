@@ -1,31 +1,50 @@
 import csv
 import laspy
+import sys
+import numpy as np
+import time
 
+# ["X","Y","Z","Intensity"]
 def createCSVfile(fileName, data):
-    print("Creating CSV file: ",fileName)
-    with open(fileName+".csv", 'wb') as csvfile:
+    print "Creating CSV file: ",fileName
+
+    finalName = "output/"+fileName+"-"+str(time.time())+".csv"
+    with open(finalName, 'wb') as csvfile:
         writer = csv.writer(csvfile)
-        writer.writerows(data)
+
+        print "Shape of data: ",data.shape
+        numberOfRows = data.shape[0]
+        for row in range(0, numberOfRows):
+            writer.writerow(data[row])
+
+    print "Created CSV file in output directory with name: ",finalName
 
 def createLASfile(fileName, data):
-    print("Creating LAS file: ", fileName)
+    print "Creating LAS file: ", fileName
 
     # Create las file header
     header = laspy.header.Header()
 
     # Create outpute file with header
-    lasFile = laspy.file.File(fileName+".las", mode="w", header=header)
-    lasFile.X = data["X"]
-    lasFile.Y = data["Y"]
-    lasFile.Z = data["Z"]
-    lasFile.intensity = data["intensity"]
+    lasFile = laspy.file.File("output/"+fileName+".las", mode="w", header=header)
+    lasFile.X = data[0]
+    lasFile.Y = data[1]
+    lasFile.Z = data[2]
+    lasFile.intensity = data[3]
     lasFile.close()
 
-createCSVfile("test1", ["write","test"])
-data = {
-'X' : [1,2,3],
-'Y' : [0,0,0],
-'Z' : [10,10,11],
-'intensity' : [25, 100, 200]
-}
-createLASfile("LasTEst", data)
+def testFileWriters():
+    data = [
+    [0,0,1,1,0,0,1,1],
+    [0,1,0,1,0,1,0,1],
+    [0,0,0,0,1,1,1,1],
+    [100, 10, 25, 60, 150, 200, 124, 144]
+    ]
+    createCSVfile("cube", np.transpose(data))
+
+def main(argv):
+    testFileWriters()
+    pass
+
+if __name__ == "__main__":
+    main(sys.argv)
