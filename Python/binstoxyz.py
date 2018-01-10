@@ -4,7 +4,7 @@ import math
 import csv
 
 
-datasets = h5py.File(r'C:\Users\Emmaa\Downloads\160930\30\00\00\merged\nldbl_pvol_20160930T0000Z.h5','r')
+datasets = h5py.File('/Users/jeroenvanbaarle/Downloads/data/07/04/15/merged/nldbl_pvol_20161007T0415Z.h5','r')
 
 """ add_heights voegt de data van radarbeelden van verschillende hoogten samen tot een lijst met dictonaries 
     met DBHZ waarden en coordinaten."""  
@@ -52,7 +52,7 @@ def get_xyz(elevation_angle, bin_number, bin_distance, angle_number, total_angle
     
 points = add_heights(datasets) 
 
-with open(r'C:\Users\Emmaa\Documents\Studie\KI\skipzero.csv', 'w') as csvfile:
+with open('/Users/jeroenvanbaarle/Documents/Studie/Leren_en_Beslissen/skipzero1.csv', 'w') as csvfile:
     fieldnames = ['DBZH', 'x', 'y', 'z']
     writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
 
