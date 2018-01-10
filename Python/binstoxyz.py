@@ -5,6 +5,9 @@ import csv
 import os
 import fnmatch
 
+
+datasets = h5py.File(r'testData/nldbl_pvol_20160930T0000Z.h5','r')
+
 """ add_heights voegt de data van radarbeelden van verschillende hoogten samen tot een lijst met dictonaries
     met DBHZ waarden en coordinaten."""
 def add_heights(datasets):
