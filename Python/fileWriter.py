@@ -16,6 +16,8 @@ def createCSVfile(fileName, data):
         for point in data:
             writer.writerow(point)
 
+        csvfile.close()
+
 def createLASfile(fileName, data):
     print "Creating LAS file: ", fileName
 
