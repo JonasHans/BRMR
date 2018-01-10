@@ -17,7 +17,7 @@ def add_heights(datasets):
 
     return points
 
-""" get_coordinates_picture berekend van elk punt in een radarafbeelding zijn x,y en z coordinaat
+""" get_coordinates_picture berekent van elk punt in een radarafbeelding zijn x,y en z coordinaat
     deze worden opgeslagen in een lijst van dictionaries samen met de DBZH waarde van elk punt."""
 def get_coordinates_picture(nbins, nrays, elevation_angle, bin_distance, data):
     resultset = []
@@ -32,7 +32,7 @@ def get_coordinates_picture(nbins, nrays, elevation_angle, bin_distance, data):
     return pic
 
 
-"""# get_xyz berekend de x, y en z coordinaat van een radarbin.
+"""# get_xyz berekent de x, y en z coordinaat van een radarbin.
     INPUT:
     elevation angle: de hoek van de radarbeam t.o.v. de grond
     bin_number: de n-de radarbin van een beam
