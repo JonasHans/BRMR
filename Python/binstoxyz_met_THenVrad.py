@@ -1,6 +1,7 @@
 import h5py
 import numpy as np
 import math
+import csv
 
 
 datasets = h5py.File(r'C:\Users\Emmaa\Downloads\160930\30\00\00\merged\nldbl_pvol_20160930T0000Z.h5','r')
@@ -15,18 +16,21 @@ def add_heights(datasets):
             nbins = datasets[data]["where"].attrs.values()[2]
             nrays = datasets[data]["where"].attrs.values()[3]
             bin_distance = datasets[data]["where"].attrs.values()[4]
-            dat = datasets[data]["data1"]["data"][()]
-            points.extend(get_coordinates_picture(nbins, nrays, elevation_angle, bin_distance, dat))
+            data_DBZH = datasets[data]["data1"]["data"][()]
+            data_TH = datasets[data]["data2"]["data"][()]
+            data_VRAD = datasets[data]["data3"]["data"][()]
+            points.extend(get_coordinates_picture(nbins, nrays, elevation_angle, bin_distance, data_DBZH, data_TH, data_VRAD))
     return points
 
 """ get_coordinates_picture berekend van elk punt in een radarafbeelding zijn x,y en z coordinaat
     deze worden opgeslagen in een lijst van dictionaries samen met de DBZH waarde van elk punt."""    
-def get_coordinates_picture(nbins, nrays, elevation_angle, bin_distance, data):
+def get_coordinates_picture(nbins, nrays, elevation_angle, bin_distance, data_DBZH, data_TH, data_VRAD):
     pic = []
     for bin_number in range(nbins):
         for ray_number in range(nrays):
-            tmp = {"DBZH": data[ray_number][bin_number], "coordinates": get_xyz(elevation_angle, bin_number, bin_distance, ray_number, nrays)}
-            print tmp
+            xyz = get_xyz(elevation_angle, bin_number, bin_distance, ray_number, nrays)
+            tmp = {"DBZH": data_DBZH[ray_number][bin_number], "TH":data_TH[ray_number][bin_number], "VRAD":data_VRAD[ray_number][bin_number], "x": xyz[0], "y": xyz[1], "z": xyz[2]}
+            #print tmp
             pic.append(tmp)
     return pic
             
@@ -49,6 +53,17 @@ def get_xyz(elevation_angle, bin_number, bin_distance, angle_number, total_angle
     return [x,y,z]
     
 points = add_heights(datasets) 
+
+with open(r'C:\Users\Emmaa\Documents\Studie\KI\complete.csv', 'w') as csvfile:
+    fieldnames = ['DBZH', 'TH', 'VRAD','x', 'y', 'z']
+    writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+
+    writer.writeheader()
+    # skip points where DBHZ is 0
+    for point in points:
+        if point["DBZH"] != 0.0:
+            writer.writerow(point)
+
 
     
 
