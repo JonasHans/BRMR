@@ -8,16 +8,13 @@ import time
 def createCSVfile(fileName, data):
     print "Creating CSV file: ",fileName
 
-    finalName = "output/"+fileName+"-"+str(time.time())+".csv"
-    with open(finalName, 'wb') as csvfile:
-        writer = csv.writer(csvfile)
+    with open(fileName, 'w') as csvfile:
+        fieldnames = ['x', 'y', 'z', 'DBZH']
 
-        print "Shape of data: ",data.shape
-        numberOfRows = data.shape[0]
-        for row in range(0, numberOfRows):
-            writer.writerow(data[row])
-
-    print "Created CSV file in output directory with name: ",finalName
+        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+        writer.writeheader()
+        for point in data:
+            writer.writerow(point)
 
 def createLASfile(fileName, data):
     print "Creating LAS file: ", fileName
