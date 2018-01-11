@@ -7,7 +7,7 @@ import re
 def convertH5toCSV(h5file, csvfileName):
     # Get data from h5 file
     datasets = h5py.File(h5file,'r')
-    
+
     # Convert h5 file to xyz
     points = add_heights(datasets)
 
