@@ -18,12 +18,12 @@ def add_heights(datasets):
             bin_distance = datasets[data]["where"].attrs.values()[4]
             data_DBZH = datasets[data]["data1"]["data"][()]
             data_TH = datasets[data]["data2"]["data"][()]
-            data_VRAD = datasets[data]["data3"]["data"][()]
+            data_VRAD = np.array(datasets[data]["data3"]["data"][()], dtype=np.int8)
             points.extend(get_coordinates_picture(nbins, nrays, elevation_angle, bin_distance, data_DBZH, data_TH, data_VRAD))
     return points
 
 """ get_coordinates_picture berekend van elk punt in een radarafbeelding zijn x,y en z coordinaat
-    deze worden opgeslagen in een lijst van dictionaries samen met de DBZH waarde van elk punt."""    
+    deze worden opgeslagen in een lijst van dictionaries samen met de DBZH waarde van elk punt."""
 def get_coordinates_picture(nbins, nrays, elevation_angle, bin_distance, data_DBZH, data_TH, data_VRAD):
     pic = []
     for bin_number in range(nbins):
@@ -33,7 +33,7 @@ def get_coordinates_picture(nbins, nrays, elevation_angle, bin_distance, data_DB
             #print tmp
             pic.append(tmp)
     return pic
-            
+
 
 """# get_xyz berekend de x, y en z coordinaat van een radarbin.
     INPUT:
@@ -43,7 +43,7 @@ def get_coordinates_picture(nbins, nrays, elevation_angle, bin_distance, data_DB
     angle_number: de n-de beam van de radar in de x-y richting
     total_angles: het totaal aantal beams wat is genomen in een rondje
     OUTPUT:
-    de x, y, en z coordinaat van de radabin"""    
+    de x, y, en z coordinaat van de radabin"""
 def get_xyz(elevation_angle, bin_number, bin_distance, angle_number, total_angles):
     z = bin_number * bin_distance * math.sin(math.radians(elevation_angle))
     dis = bin_number * bin_distance * math.cos(math.radians(elevation_angle))
@@ -51,8 +51,8 @@ def get_xyz(elevation_angle, bin_number, bin_distance, angle_number, total_angle
     y = dis * math.cos(beam_angle)
     x = dis * math.sin(beam_angle)
     return [x,y,z]
-    
-points = add_heights(datasets) 
+
+points = add_heights(datasets)
 
 with open('testdata/complete.csv', 'w') as csvfile:
     fieldnames = ['DBZH', 'TH', 'VRAD','x', 'y', 'z']
@@ -64,8 +64,4 @@ with open('testdata/complete.csv', 'w') as csvfile:
         if point["DBZH"] != 0.0:
 
             writer.writerow(point)
-
-
-
-    
 
