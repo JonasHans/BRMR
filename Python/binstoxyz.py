@@ -5,9 +5,6 @@ import csv
 import os
 import fnmatch
 
-
-datasets = h5py.File(r'testData/nldbl_pvol_20160930T0000Z.h5','r')
-
 """ add_heights voegt de data van radarbeelden van verschillende hoogten samen tot een lijst met dictonaries
     met DBHZ waarden en coordinaten."""
 def add_heights(datasets):
@@ -18,18 +15,20 @@ def add_heights(datasets):
             nbins = datasets[data]["where"].attrs.values()[2]
             nrays = datasets[data]["where"].attrs.values()[3]
             bin_distance = datasets[data]["where"].attrs.values()[4]
-            dat = datasets[data]["data1"]["data"][()]
-            points.extend(get_coordinates_picture(nbins, nrays, elevation_angle, bin_distance, dat))
+            data_DBZH = datasets[data]["data1"]["data"][()]
+            data_TH = datasets[data]["data2"]["data"][()]
+            data_VRAD = datasets[data]["data3"]["data"][()]
+            points.extend(get_coordinates_picture(nbins, nrays, elevation_angle, bin_distance, data_DBZH, data_TH, data_VRAD))
     return points
 
 """ get_coordinates_picture berekend van elk punt in een radarafbeelding zijn x,y en z coordinaat
     deze worden opgeslagen in een lijst van dictionaries samen met de DBZH waarde van elk punt."""
-def get_coordinates_picture(nbins, nrays, elevation_angle, bin_distance, data):
+def get_coordinates_picture(nbins, nrays, elevation_angle, bin_distance, data_DBZH, data_TH, data_VRAD):
     pic = []
     for bin_number in range(nbins):
         for ray_number in range(nrays):
             xyz = get_xyz(elevation_angle, bin_number, bin_distance, ray_number, nrays)
-            tmp = {"DBZH": data[ray_number][bin_number], "x": xyz[0], "y": xyz[1], "z": xyz[2]}
+            tmp = {"DBZH": data_DBZH[ray_number][bin_number], "TH":data_TH[ray_number][bin_number], "VRAD":data_VRAD[ray_number][bin_number], "x": xyz[0], "y": xyz[1], "z": xyz[2]}
             #print tmp
             pic.append(tmp)
     return pic

@@ -9,12 +9,13 @@ def createCSVfile(fileName, data):
     print "Creating CSV file: ",fileName
 
     with open(fileName, 'w') as csvfile:
-        fieldnames = ['x', 'y', 'z', 'DBZH']
+        fieldnames = ['DBZH', 'TH', 'VRAD','x', 'y', 'z']
 
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
         writer.writeheader()
         for point in data:
-            writer.writerow(point)
+            if point["DBZH"] != 0.0:
+                writer.writerow(point)
 
         csvfile.close()
 
