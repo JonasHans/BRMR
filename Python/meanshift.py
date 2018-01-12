@@ -4,28 +4,23 @@ from sklearn.cluster import KMeans
 import shutil as su
 
 def kmeans(path_and_name):
-    data = np.genfromtxt(path_and_name, delimiter=',')
-    data = data[1:]
-    data = data[:, 0]
+    original = np.genfromtxt(path_and_name, delimiter=',')
+    headless = original[1:]
+    data = headless[:, 0]
     data = data.reshape(-1,1)
     print(data)
     ks = KMeans(n_clusters=3).fit(data)
 
     print("Labels for kmeans: ")
     labels = ks.labels_
-    labels = np.append("cluster", labels)
+    #labels = np.append("cluster", labels)
     print(labels)
 
+    newdata = np.append(np.reshape(headless[:,3], (-1,1)), np.reshape(headless[:,4], (-1,1)), axis=1)
+    newdata = np.append(newdata, np.reshape(headless[:,5], (-1,1)), axis=1)
+    newdata = np.append(newdata, np.reshape(labels,(-1,1)), axis=1)
 
-    #su.copyfile(path_and_name, "testdata/completenew.csv")
+    np.savetxt("testdata/new.csv", newdata, delimiter=',')
 
-    with open(path_and_name, "r") as original:
-        with open("testdata/complete.csv", "w") as new:
-            writer = csv.writer(new)
-
-            for row, label in zip(original, labels):
-                row = np.append(row, label)
-
-                writer.writerow(row)
 
 kmeans("testdata/complete.csv")
