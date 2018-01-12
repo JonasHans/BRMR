@@ -17,7 +17,7 @@ def add_heights(datasets):
             bin_distance = datasets[data]["where"].attrs.values()[4]
             data_DBZH = datasets[data]["data1"]["data"][()]
             data_TH = datasets[data]["data2"]["data"][()]
-            data_VRAD = np.array(datasets[data]["data3"]["data"][()], dtype=np.float16)
+            data_VRAD = np.array(datasets[data]["data3"]["data"][()], dtype=np.int8)
             points.extend(get_coordinates_picture(nbins, nrays, elevation_angle, bin_distance, data_DBZH, data_TH, data_VRAD))
     return points
 
