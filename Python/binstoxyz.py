@@ -17,19 +17,21 @@ def add_heights(datasets):
             bin_distance = datasets[data]["where"].attrs.values()[4]
             data_DBZH = datasets[data]["data1"]["data"][()]
             data_TH = datasets[data]["data2"]["data"][()]
-            data_VRAD = np.array(datasets[data]["data3"]["data"][()], dtype=np.int8)
-            points.extend(get_coordinates_picture(nbins, nrays, elevation_angle, bin_distance, data_DBZH, data_TH, data_VRAD))
+            data_VRAD = datasets[data]["data3"]["data"][()]
+            offsets = [datasets[data]["data1"]["what"].attrs.values()[1], datasets[data]["data2"]["what"].attrs.values()[1], datasets[data]["data3"]["what"].attrs.values()[1]]
+            gains = [datasets[data]["data1"]["what"].attrs.values()[0], datasets[data]["data2"]["what"].attrs.values()[0], datasets[data]["data3"]["what"].attrs.values()[0]]
+            points.extend(get_coordinates_picture(nbins, nrays, elevation_angle, bin_distance, data_DBZH, data_TH, data_VRAD, offsets, gains))
     return points
 
 """ get_coordinates_picture berekend van elk punt in een radarafbeelding zijn x,y en z coordinaat
-    deze worden opgeslagen in een lijst van dictionaries samen met de DBZH waarde van elk punt."""
-def get_coordinates_picture(nbins, nrays, elevation_angle, bin_distance, data_DBZH, data_TH, data_VRAD):
+    deze worden opgeslagen in een lijst van dictionaries samen met de DBZH waarde van elk punt."""    
+def get_coordinates_picture(nbins, nrays, elevation_angle, bin_distance, data_DBZH, data_TH, data_VRAD, offsets, gains):
     pic = []
     for bin_number in range(nbins):
         for ray_number in range(nrays):
             xyz = get_xyz(elevation_angle, bin_number, bin_distance, ray_number, nrays)
-            tmp = {"DBZH": data_DBZH[ray_number][bin_number], "TH":data_TH[ray_number][bin_number], "VRAD":data_VRAD[ray_number][bin_number], "x": xyz[0], "y": xyz[1], "z": xyz[2]}
-            #print tmp
+            tmp = {"DBZH": offsets[0] + data_DBZH[ray_number][bin_number]*gains[0], "TH":offsets[1] + data_TH[ray_number][bin_number]*gains[1],
+            "VRAD":offsets[2] + data_VRAD[ray_number][bin_number] * gains[2], "x": xyz[0], "y": xyz[1], "z": xyz[2]}
             pic.append(tmp)
     return pic
 
