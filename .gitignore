@@ -1,6 +1,9 @@
 # project specific
 *.csv
 *.las
+.idea
+csvData/*
+RadarData/*
 
 # Packages #
 ############

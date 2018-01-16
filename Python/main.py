@@ -35,7 +35,8 @@ def importData():
 
 def main(argv):
     print "******************** Begin main function *******************************"
-    importData();
+    # importData();
+    convertH5toCSV("rain-mask.h5","output/rain-mask.csv")
     print "********************* End main function ********************************"
     pass
 
