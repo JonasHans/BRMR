@@ -22,8 +22,8 @@ def importData():
         for filename in fnmatch.filter(filenames, '*.h5'):
             matches.append(os.path.join(root, filename))
     # Convert all H5 files to csv files
+    print matches
     for h5file in matches:
-        print(h5file)
         regexResult = h5file.split('/') # [datum, uur, kwartier]
         print regexResult
         if not os.path.exists("csvData/"+regexResult[1]):

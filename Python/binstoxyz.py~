@@ -6,12 +6,12 @@ import sys
 
 # Get current OS to avoid errors in path
 
-#os = sys.platform
+os = sys.platform
 
-#if(os == "windows"):
-#    datasets = h5py.File(r'C:\Users\Emmaa\Downloads\160930\30\03\30\merged\nldbl_pvol_20160930T0330Z.h5','r')
-#else:
-#    datasets = h5py.File('RadarData/160930/20/30/merged/nldbl_pvol_20160930T2030Z.h5', 'r')
+if(os == "windows"):
+    datasets = h5py.File(r'C:\Users\Emmaa\Downloads\160930\30\03\30\merged\nldbl_pvol_20160930T0330Z.h5','r')
+else:
+    datasets = h5py.File('RadarData/160930/20/30/merged/nldbl_pvol_20160930T2030Z.h5', 'r')
 
 # add_heights voegt de data van radarbeelden van verschillende hoogten samen tot een lijst met dictonaries
 # met DBHZ waarden en coordinaten.
@@ -39,11 +39,11 @@ def get_coordinates_picture(nbins, nrays, elevation_angle, bin_distance, data_DB
     for bin_number in range(nbins):
         for ray_number in range(nrays):
             xyz = get_xyz(elevation_angle, bin_number, bin_distance, ray_number, nrays)
-            tmp = {"DBZH": offsets[0] + data_DBZH[ray_number][bin_number]*gains[0], "TH":offsets[1] + data_TH[ray_number][bin_number]*gains[1],
+            tmp = {"DBZH": offsets[0] + data_DBZH[ray_number][bin_number]*gains[0], "TH":offsets[1] + data_TH[ray_number][bin_number]*gains[1], 
             "VRAD":offsets[2] + data_VRAD[ray_number][bin_number] * gains[2], "x": xyz[0], "y": xyz[1], "z": xyz[2]}
             pic.append(tmp)
     return pic
-
+            
 
 #    get_xyz berekend de x, y en z coordinaat van een radarbin.
 #    INPUT:
@@ -62,3 +62,7 @@ def get_xyz(elevation_angle, bin_number, bin_distance, angle_number, total_angle
     x = dis * math.sin(beam_angle)
     return [x,y,z]
     
+points = add_heights(datasets) 
+
+
+
