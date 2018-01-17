@@ -14,9 +14,8 @@ def createCSVfile(fileName, data):
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
         writer.writeheader()
         for point in data:
-            if point["DBZH"] != 0.0:
+            if point['DBZH'] != 0.0:
                 writer.writerow(point)
-
         csvfile.close()
 
 def createLASfile(fileName, data):
@@ -32,19 +31,3 @@ def createLASfile(fileName, data):
     lasFile.Z = data[2]
     lasFile.intensity = data[3]
     lasFile.close()
-
-def testFileWriters():
-    data = [
-    [0,0,1,1,0,0,1,1],
-    [0,1,0,1,0,1,0,1],
-    [0,0,0,0,1,1,1,1],
-    [100, 10, 25, 60, 150, 200, 124, 144]
-    ]
-    createCSVfile("cube", np.transpose(data))
-
-def main(argv):
-    testFileWriters()
-    pass
-
-if __name__ == "__main__":
-    main(sys.argv)

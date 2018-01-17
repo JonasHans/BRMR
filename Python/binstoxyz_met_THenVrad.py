@@ -5,7 +5,7 @@ import csv
 
 datasets = h5py.File('RadarData/160930/00/30/merged/nldbl_pvol_20160930T0030Z.h5','r')
 
-""" add_heights voegt de data van radarbeelden van verschillende hoogten samen tot een lijst met dictonaries 
+""" add_heights voegt de data van radarbeelden van verschillende hoogten samen tot een lijst met dictonaries
     met DBHZ waarden en coordinaten."""
 
 def add_heights(datasets):
@@ -16,7 +16,7 @@ def add_heights(datasets):
             nbins = datasets[data]["where"].attrs.values()[2]
             nrays = datasets[data]["where"].attrs.values()[3]
             bin_distance = datasets[data]["where"].attrs.values()[4]
-            data_DBZH = datasets[data]["data1"]["data"][()]
+            data_DBZH = datasets[data][ "data1"]["data"][()]
             data_TH = datasets[data]["data2"]["data"][()]
             data_VRAD = np.array(datasets[data]["data3"]["data"][()], dtype=np.int8)
             points.extend(get_coordinates_picture(nbins, nrays, elevation_angle, bin_distance, data_DBZH, data_TH, data_VRAD))
@@ -64,4 +64,3 @@ with open('testdata/complete.csv', 'w') as csvfile:
         if point["DBZH"] != 0.0:
 
             writer.writerow(point)
-
