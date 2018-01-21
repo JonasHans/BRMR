@@ -39,7 +39,6 @@ def main(argv):
     print "********************* End main function ********************************"
     pass
 
-#if __name__ == "__main__":
-#    main(sys.argv)
+if __name__ == "__main__":
+    main(sys.argv)
 
-convertH5toCSV("RadarData/160930/22/45/merged/nldbl_pvol_20160930T2245Z.h5", "testdata/930-22-45.csv")
