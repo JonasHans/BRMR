@@ -1,8 +1,6 @@
 from fileWriter import *
 from binstoxyz import *
-import fnmatch
 import os
-import re
 
 def convertH5toCSV(h5file, csvfileName):
     # Get data from h5 file

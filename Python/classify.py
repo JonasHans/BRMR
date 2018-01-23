@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import numpy as np
 import csv
 from sklearn.cluster import KMeans
@@ -13,9 +14,7 @@ def classify_rain(path_and_name):
     	if(i > 7.0):
     		classification = np.append(classification, 0)
     	else:
-    		counter = counter + 1
     		classification = np.append(classification, 1)
-    		print(counter)
 
     classification = np.reshape(classification, (-1,1))
 
