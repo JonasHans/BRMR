@@ -21,14 +21,12 @@ def importData():
     for root, dirnames, filenames in os.walk('RadarData'):
         for filename in fnmatch.filter(filenames, '*.h5'):
             matches.append(os.path.join(root, filename))
+    print(matches)
     # Convert all H5 files to csv files
     for h5file in matches:
-        print(h5file)
         regexResult = h5file.split('/') # [datum, uur, kwartier]
-        print regexResult
         if not os.path.exists("csvData/"+regexResult[1]):
             os.makedirs("csvData/"+regexResult[1])
-
         csvFileName = "csvData/"+regexResult[1]+"/"+regexResult[1]+"-"+regexResult[2]+"-"+regexResult[3]+".csv"
         convertH5toCSV(h5file, csvFileName)
 

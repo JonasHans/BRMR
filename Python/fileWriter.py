@@ -14,7 +14,7 @@ def createCSVfile(fileName, data):
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
         writer.writeheader()
         for point in data:
-            if point['DBZH'] != 0.0:
+            if point['DBZH'] > -31.0:
                 writer.writerow(point)
         csvfile.close()
 
