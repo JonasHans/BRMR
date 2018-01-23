@@ -18,7 +18,7 @@ def bgm(path_and_name):
     trainset = data[:div]
     testset = data[div:]
 
-    mix = BayesianGaussianMixture(n_components=8, weight_concentration_prior=0.00001).fit(trainset)
+    mix = BayesianGaussianMixture(n_components=3, weight_concentration_prior=0.001).fit(trainset)
 
     labels = mix.predict(testset)
     print labels
@@ -37,4 +37,3 @@ def bgm(path_and_name):
     np.savetxt("output/new.csv", labeledData, delimiter=',')
 
 bgm('testData/930-22-45.csv')
-
