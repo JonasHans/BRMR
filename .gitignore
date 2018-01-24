@@ -2,9 +2,11 @@
 *.csv
 *.las
 .idea
+.pyc
 csvData/*
 RadarData/*
 output/*
+*~
 
 # Packages #
 ############
