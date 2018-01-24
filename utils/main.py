@@ -1,12 +1,12 @@
-from fileWriter import *
-from binstoxyz import *
+from writeToCSV import *
+from getH5File import *
 import os
 import fnmatch
 import sys
 
 # This file is for turning the h5 data to a compatible csv file.
-# In fileWriter the data (in dictionaries) is written in a csv
-# In binstoxyz the data from h5 is handled to calculate the coordinates and putting the data in a dictionary
+# In writeToCSV the data (in dictionaries) is written in a csv
+# In getH5File the data from h5 is handled to calculate the coordinates and putting the data in a dictionary
 
 # Change the code below to the folder/path of the h5 files (location)
 # Target_location is where the csv data are written to
@@ -20,10 +20,10 @@ def convertH5toCSV(h5file, csvfileName):
     datasets = h5py.File(h5file, 'r')
 
     # Convert h5 file to xyz
-    points = add_heights(datasets) # From binstoxyz
+    points = add_heights(datasets) # From getH5File
 
     # Export points to csv file
-    createCSVfile(csvfileName, points) # From fileWriter
+    createCSVfile(csvfileName, points) # From writeToCSV
 
 def importData(location, newpath):
     matches = []
