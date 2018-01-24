@@ -1,0 +1,15 @@
+import csv
+
+# ["X","Y","Z","Intensity"]
+def createCSVfile(fileName, data):
+    print "Creating CSV file: ",fileName
+
+    with open(fileName, 'w') as csvfile:
+        fieldnames = ['DBZH', 'TH', 'VRAD','x', 'y', 'z']
+
+        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+        writer.writeheader()
+        for point in data:
+            if point['DBZH'] > -31.0:
+                writer.writerow(point)
+        csvfile.close()

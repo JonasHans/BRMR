@@ -1,33 +1,22 @@
 import csv
-import laspy
-import sys
-import numpy as np
-import time
 
-# ["X","Y","Z","Intensity"]
+# We have used the same threshold as the KNMI where everything below a dBZH value of -30 is clutter
+threshold = -31.0
+# Create or overwrite a csv file with 6 colomns, each containing a feature or coordinate.
 def createCSVfile(fileName, data):
-    print "Creating CSV file: ",fileName
+    print fileName
 
     with open(fileName, 'w') as csvfile:
+		# These are the features stored each in a different colomn
         fieldnames = ['DBZH', 'TH', 'VRAD','x', 'y', 'z']
-
+        # Write the features to a dictionary
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+        # Write a row with the specified fieldnames
         writer.writeheader()
+
+        # Recursively write a row
         for point in data:
-            if point['DBZH'] > -31.0:
+            if point['DBZH'] > threshold:
                 writer.writerow(point)
+        print 'is created.'
         csvfile.close()
-
-def createLASfile(fileName, data):
-    print "Creating LAS file: ", fileName
-
-    # Create las file header
-    header = laspy.header.Header()
-
-    # Create outpute file with header
-    lasFile = laspy.file.File("output/"+fileName+".las", mode="w", header=header)
-    lasFile.X = data[0]
-    lasFile.Y = data[1]
-    lasFile.Z = data[2]
-    lasFile.intensity = data[3]
-    lasFile.close()
