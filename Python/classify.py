@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import numpy as np
 import csv
 from sklearn.cluster import KMeans
