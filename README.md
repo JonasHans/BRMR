@@ -4,7 +4,7 @@ Bird Recognition from Meteorological Radars
 For this project we received raw radar data (h5) and the desired output is a clustered pointcloud based on the clusters rain and birds.
 Here we tried various cluster techniques and described which has the best result for radarclustering.
 ## Contents
-* utils (convert h5 to csv files)
+* utils (convert h5 to csv files)o
 * src (for the Python 2 notebooks containing the algorithms)
 ## Software used:
 * CloudCompare (visualization of pointclouds)
