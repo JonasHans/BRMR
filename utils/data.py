@@ -3,6 +3,9 @@ from convertH5Data import *
 import os
 import fnmatch
 import sys
+import csv
+import math
+import h5py
 
 # This file is for turning the h5 data to a compatible csv file.
 # In writeToCSV the data (in dictionaries) is written in a csv
