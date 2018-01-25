@@ -5,9 +5,11 @@
 .pyc
 csvData/*
 RadarData/*
+utils/csvData
+utils/RadarData
 output/*
 *~
-
+.ipynb_checkpoints
 # Packages #
 ############
 # it's better to unpack these files and commit the raw source
