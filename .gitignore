@@ -5,8 +5,8 @@
 .pyc
 csvData/*
 RadarData/*
-utils/csvData/*
-utils/RadarData/*
+utils/csvData
+utils/RadarData
 output/*
 *~
 .ipynb_checkpoints
