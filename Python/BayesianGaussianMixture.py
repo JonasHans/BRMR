@@ -25,6 +25,6 @@ def bgm(path_and_name):
 
     labeledData = np.append(testset, np.reshape(labels, (-1,1)), axis = 1)
 
-    np.savetxt("output/BGM_09_30-23-00.csv", labeledData, delimiter=',')
+    np.savetxt("output/BGM_10_07-20-30.csv", labeledData, delimiter=',')
 
-bgm('csvdata/160930/160930-23-00.csv')
+bgm('csvdata/161007/161007-20-30.csv')
