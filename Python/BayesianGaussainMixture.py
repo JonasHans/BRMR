@@ -9,14 +9,14 @@ def bgm(path_and_name):
     data = headless[:,(0,2,3,4,5)]
 
     length = np.shape(data)[0]
-    ratio = 0.4
+    ratio = 0.3
     div = int(length * ratio)
     np.random.shuffle(data)
 
     trainset = data[:div]
     testset = data[div:]
 
-    mix = BayesianGaussianMixture(n_components=6,max_iter=10000,weight_concentration_prior_type='dirichlet_distribution', weight_concentration_prior=0.00005).fit(trainset)
+    mix = BayesianGaussianMixture(max_iter=10000, weight_concentration_prior=100).fit(trainset)
     print("Trainingsset fitted")
 
     labels = mix.predict(testset)

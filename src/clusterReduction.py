@@ -39,6 +39,6 @@ def reduction(filename):
 
 	classifiedData = np.append(data, classes, axis = 1)
 
-	np.savetxt("output/classified.csv", classifiedData, delimiter=',')
+	np.savetxt("ouput/class_BGM_09_30-23-00.csv", classifiedData, delimiter=',')
 
-reduction("output/new.csv")
+reduction("output/BGM_09_30-23-00.csv")
