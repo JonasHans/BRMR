@@ -11,6 +11,7 @@ Here we tried various cluster techniques and described which has the best result
 * `src` (for the Python 2 notebooks containing the algorithms)
 	+ All the algorithms are run from their separate notebooks.
 	+ If an algorithm returns more than 2 clusters, run clusterReduction.ipynb to reduce that down to 2.
+	+ Output files of the clusterReduction.ipynb will have the "class_" prefix to their name.
 ## Software used:
 * CloudCompare (visualization of pointclouds)
 * Python 2 + 3 (notebooks are in Python 2)
